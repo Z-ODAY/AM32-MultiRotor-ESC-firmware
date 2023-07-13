@@ -1418,6 +1418,7 @@ int main(void)
 {
 
  //initAfterJump();
+__enable_irq();
 
  initCorePeripherals();
 
