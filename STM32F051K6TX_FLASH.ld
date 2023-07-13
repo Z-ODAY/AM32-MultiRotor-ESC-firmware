@@ -39,9 +39,9 @@ MEMORY
 {
  /* SRAM          (xrw) : ORIGIN = 0x20000000, LENGTH = 192*/
   RAM           (xrw) : ORIGIN = 0x20000000, LENGTH = 8K
-  FLASH_VECTAB  (rx)  : ORIGIN = 0x08000000, LENGTH = 0
-  FLASH_VERSION (rx)  : ORIGIN = 0x080000C0, LENGTH = 14
-  FLASH         (rx)  : ORIGIN = ORIGIN(FLASH_VERSION) + LENGTH(FLASH_VERSION), LENGTH = 31K - (LENGTH(FLASH_VECTAB) + LENGTH(FLASH_VERSION))
+ /* FLASH_VECTAB  (rx)  : ORIGIN = 0x08000000, LENGTH = 0*/
+/*  FLASH_VERSION (rx)  : ORIGIN = 0x080000C0, LENGTH = 14*/
+  FLASH         (rx)  : ORIGIN = 0x08000000, LENGTH = 31K /*ORIGIN(FLASH_VERSION) + LENGTH(FLASH_VERSION), LENGTH = 31K - (LENGTH(FLASH_VECTAB) + LENGTH(FLASH_VERSION))*/
   EEPROM        (rx)  : ORIGIN = 0x080007C00, LENGTH = 1K
 }
 
@@ -54,14 +54,15 @@ SECTIONS
     . = ALIGN(4);
     KEEP(*(.isr_vector)) /* Startup code */
     . = ALIGN(4);
-  } >FLASH_VECTAB
-
+  } >FLASH
+/*
   /* The firmware version and name - at a fixed address to make it possible to read it from firmware files. */
   .firmware_version :
   {
     . = ALIGN(4);
 	KEEP (*(.firmware_info))
   } >FLASH_VERSION
+*/
 
   /* The program code and other data into "FLASH" Rom type memory */
   .text :
